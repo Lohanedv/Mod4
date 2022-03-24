@@ -1,0 +1,158 @@
+package service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+import connector.ConexaoBanco;
+import model.Destino;
+
+public class DestinoService {
+
+	public static void save() {
+		Scanner sc = new Scanner(System.in);
+		
+		Destino destino = new Destino();
+		
+		System.out.println("Informe o destino escolhido: ");
+		destino.setDestino(sc.nextLine());
+		
+		System.out.println("Informe da Data de Ida : ");
+		destino.setDataIda(sc.nextLine());
+		
+		System.out.println("Informe a Data de Volta : ");
+		destino.setDataVolta(sc.nextLine());
+		
+		System.out.println("Quantas pessoas irão viajar com você : ");
+		destino.setQuantPessoas(sc.nextInt());
+		sc.nextLine();
+		
+		String sql = "INSERT INTO Agendamento(destino, dataIda, dataVolta, quantPessoas)VALUES(?,?,?,?)";
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		try {
+			conn = ConexaoBanco.createConnection();
+			pstm = conn.prepareStatement(sql);
+			
+			pstm.setString(1, Destino.getDestino());
+			pstm.setString(2, Destino.getDataIda());
+			pstm.setString(3, Destino.getDataVolta());
+			pstm.setInt(4, Destino.getQuantPessoas());
+			
+			System.out.println("Reserva efetuada com sucesso, cheque o seu email para confirmar as passagens.");
+			System.out.println("A Familia CampingTour agradece á preferencia. \n Tenha uma excelente viagem!");
+			
+			pstm.execute();
+			pstm.close();
+			
+		}catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+
+	public static void update() {
+		Scanner sc = new Scanner(System.in);
+
+		String NovaDataIda, NovaDataVolta, NovoDestino;
+		int  NovaQuantPessoas, opcao, item;
+
+		System.out.println("Precisa atualizar o Agendamento da sua viagem? \n 1-Sim \n 2-Não");
+		opcao = sc.nextInt();
+		if (opcao == 1) {
+
+			do {
+				System.out.println("O que deseja alterar? \n1 - Destino  \n2 - Data de Ida \n3 - Data de Volta \n4 - Quantidade de Passagens \n5 - Sair");
+				item = sc.nextInt();
+			} while (item != 1 && item != 2 && item != 3 && item != 4 && item != 5);
+
+			if (item == 1) {
+				System.out.println("Informe o novo destino:");
+				NovoDestino = sc.nextLine();
+
+				String sql = "INSERT INTO Destino( destino )VALUES(?)";
+
+				Connection conn = null;
+				PreparedStatement pstm = null;
+				try {
+					conn = ConexaoBanco.createConnection();
+					pstm = conn.prepareStatement(sql);
+
+					pstm.setString(1, NovoDestino);
+
+					System.out.println("O destino da sua viagem foi alterado com sucesso!!");
+
+					pstm.execute();
+					pstm.close();
+
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+			}
+			else if (item == 3) {
+				System.out.println("Informe a nova data escolida para iniciar a sua viagem :");
+				NovaDataIda = sc.nextLine();
+
+				String sql = "INSERT INTO Destino( DataIda )VALUES(?)";
+
+				Connection conn = null;
+				PreparedStatement pstm = null;
+				try {
+					conn = ConexaoBanco.createConnection();
+					pstm = conn.prepareStatement(sql);
+
+					pstm.setString(1, NovaDataIda);
+
+					System.out.println("Nova data agendada com sucesso!!");
+
+					pstm.execute();
+					pstm.close();
+
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+			}else if (item == 4) {
+					System.out.println("Informe a nova data final da sua viagem :");
+					NovaDataVolta = sc.nextLine();
+
+					String sql = "INSERT INTO Destino( DataVolta )VALUES(?)";
+
+					Connection conn = null;
+					PreparedStatement pstm = null;
+					try {
+						conn = ConexaoBanco.createConnection();
+						pstm = conn.prepareStatement(sql);
+
+						pstm.setString(1, NovaDataIda);
+
+						System.out.println("Nova data agendada com sucesso!!");
+
+						pstm.execute();
+						pstm.close();
+
+					} catch (Exception ex) {
+						System.out.println(ex.getMessage());
+					}
+	}else if (item == 5) {
+		System.out.println("Quantas pessoas irão viajar com você ? ");
+		NovaQuantPessoas = sc.nextInt();
+
+		String sql = "INSERT INTO Destino( QuantPessoas )VALUES(?)";
+
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		try {
+			conn = ConexaoBanco.createConnection();
+			pstm = conn.prepareStatement(sql);
+
+			pstm.setInt(1, NovaQuantPessoas);
+
+			System.out.println("Reservas agendadas com sucesso, por gentileza, no email de confirmação nos informe os nomes e as idades dos demais passageiros.!!");
+
+			pstm.execute();
+			pstm.close();
+
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	} System.out.println("Reserva editada com sucesso!");

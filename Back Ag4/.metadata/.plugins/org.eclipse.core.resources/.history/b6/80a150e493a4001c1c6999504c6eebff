@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+import service.CadastroService;
+import service.ContatoService;
+import service.DestinoService;
+
+public class Program {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		
+		service.CadastroService cadastroService = new CadastroService();
+		cadastroService.save();
+		
+		int number;
+		do {
+			System.out.println("Precisa fazer alguma alteração nos seus dados cadastrais?"
+					+ " \n1- Não \n2-Sim, editar Cadastro");
+			
+			number = sc.nextInt();
+		}while(number!= 1 && number!= 2);
+		
+		if (number == 2) {
+			CadastroService.update();
+		}else {
+			System.out.println("Agora vamos cadastrar o seu Destino .. ");
+			
+			DestinoService destinoService = new DestinoService();
+			destinoService.save();
+		}
+			
+			int opcao;
+			
+			do {
+				System.out.println("Precisa alterar os dados da sua reserva? "
+						+ "\n1 -Sim \n2-Não \n3-Cancelar reserva");
+				
+				opcao = sc.nextInt();
+			}while(opcao != 1 && opcao != 2 && opcao != 3);
+			if(number == 1) {
+				DestinoService destinoService = new DestinoService();
+				destinoService.update();
+			}else if(opcao == 3) {
+				DestinoService destinoService = new DestinoService();
+				destinoService.delete();
+			}else{
+				System.out.println("Nenhum dado do seu agendamento foi alterado, enviaremos um email com a confirmação da reserva, aguarde.");
+
+		}
+			int item;
+		do{
+			System.out.println("A confirmação do agendamento, bem como as formas de pagamento estarão anexas no email cadastrado, "
+					+ "se tiver alguma dúvida sobre o agendamento, ou o seu cadastro, por favor solicite contato.");
+			System.out.println("Solicitar contato dos nossos agentes de viagem?"
+					+ "\n1- Sim \n2-Não");
+			
+			item = sc.nextInt();
+			
+		}while(item != 1 && item != 2);
+		
+		if(item == 1) {
+			
+			service.ContatoService contatoService = new ContatoService();
+			contatoService.save();
+			
+			System.out.println("CampingTour, a familia especialista em realizar sonhos e te conectar com a mãe natureza.");
+		}else {
+			System.out.println("CampingTour, a familia especialista em realizar sonhos e te conectar com a mãe natureza.");
+		}
+		}
+}
