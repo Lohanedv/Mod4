@@ -1,0 +1,32 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.Titulo{
+    text-align: center; 
+}
+.Home{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 50px;
+    row-gap: 60px;
+    margin-bottom: 80px;
+    margin: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.Promocoes h5{
+    color: red;
+    text-decoration: line-through;
+}
+.Promocoes h2{
+color: blue;
+}
+.Card.Img{
+    max-width:50%;
+
+}
+
